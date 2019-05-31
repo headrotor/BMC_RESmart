@@ -65,10 +65,10 @@ Address      Interpretatation
 001          Reslex value (1-5)
 002          IPAP value in units of 0.5 cm H20 (divide by 2 to get actual)
 003          EPAP value in units of 0.5 cm H20 (divide by 2 to get actual)
-004-028      25 values of unfiltered instantaneous pressure
-029-053      25 values of smoothed instantaneous pressure (25Hz)
-054-078      25 values of unfiltered instantaneous pressure
-079-084      10 values of instantaneous pulse (10 Hz)
+004-028      25 values of something related to pressure at 25 Hz
+029-053      25 values of of something related to pressure at 25 Hz
+054-078      25 values of instaneous flow at 25 Hz
+079-084      10 values of something oscillatory at 10Hz (motor drive?)
 085-094      unknown values related to pressure?
 095          Tidal volume in liters per minute
 098          spO2 (blood oxygenation) in percent (only if oximeter attached)
@@ -84,3 +84,27 @@ after the start of pressure flow.
 The last 8 bytes are the timestamp, one 16-bit integer for the year,
 followed by 5 unsigned bytes for month, day, hour, minute, and
 second. The final byte is an unknown value.
+
+
+~~~~
+
+usage: python resmart_parse.py
+[in a directory containing .000, .001... raw data files ]
+
+positional arguments:
+  output_file         Output data CSV file
+
+optional arguments:
+  -h, --help          show this help message and exit
+  --list_dates, -l    Print dates found in stored data. Suppresses other
+                      output
+  --f25_hz, -2        Print out all 25 Hz (flow) data. this will make output
+                      files 25x as big.
+  --f10_hz, -1        Print out all 10 Hz (pulse) data. this will make output
+                      files 10x as big.
+  --all_data, -a      Print out all 1Hz data fields known or unknown
+  --time_ymd, -y      Print timestamp in Y, M, D, H, M, S format
+  --time_seconds, -s  Print timestamp in seconds since beginning of month
+  --quiet, -q         Do not print progress and info to stderr
+
+~~~~
