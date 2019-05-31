@@ -63,8 +63,8 @@ is as follows (these are guesses!):
 Address      Interpretatation
 000          Always 0xAAAA
 001          Reslex value (1-5)
-002          IPAP value in units of 0.5 cm H20 (divide by 2 to get actual)
-003          EPAP value in units of 0.5 cm H20 (divide by 2 to get actual)
+002          IPAP value in units of 0.5 cm H20 (divide by 2 to get cm)
+003          EPAP value in units of 0.5 cm H20 (divide by 2 to get cm)
 004-028      25 values of something related to pressure at 25 Hz
 029-053      25 values of of something related to pressure at 25 Hz
 054-078      25 values of instaneous flow at 25 Hz
@@ -75,10 +75,10 @@ Address      Interpretatation
 099          Heart rate in bpm (only if oximeter attached)
 100          Respiration rate in breaths per minute
 101-120      zero padding
-~~~
+~~~~
 
-Some values, such as respiration rate are 0xffff (65535) when not valid, for
-example the resporation rate takes 30 or more seconds to become valid
+Some values are 0xffff (65535) when not valid, for
+example the respiration rate takes 30 or more seconds to become valid
 after the start of pressure flow.
 
 The last 8 bytes are the timestamp, one 16-bit integer for the year,
@@ -106,5 +106,5 @@ optional arguments:
   --time_ymd, -y      Print timestamp in Y, M, D, H, M, S format
   --time_seconds, -s  Print timestamp in seconds since beginning of month
   --quiet, -q         Do not print progress and info to stderr
-
 ~~~~
+
